@@ -1,10 +1,19 @@
-import React from 'react'
+import React from "react";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 const Adminform = () => {
+  const { register, handleSubmit, reset } = useForm();
+  const dataconsole = (data) => {
+    console.log(data);
+    setmeddata(data);
+    reset();
+  };
+
+  const [meddata, setmeddata] = useState({});
   return (
     <div>
-
-<section class="bg-gray-50 dark:bg-gray-900">
+      <section class="bg-gray-50 dark:bg-gray-900">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <a
             href="#"
@@ -17,7 +26,10 @@ const Adminform = () => {
               <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Enter Data
               </h1>
-              <form class="space-y-4 md:space-y-6" action="#">
+              <form
+                class="space-y-4 md:space-y-6"
+                onSubmit={handleSubmit(dataconsole)}
+              >
                 <div>
                   <label
                     for="text"
@@ -31,7 +43,8 @@ const Adminform = () => {
                     id="medicine_name"
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Medicine name"
-                    required=""
+                    required
+                    {...register("medicine_name")}
                   />
                 </div>
                 <div>
@@ -45,9 +58,10 @@ const Adminform = () => {
                     type="number"
                     name="price"
                     id="price"
-                    placeholder="Price"
+                    placeholder="price"
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
+                    required
+                    {...register("number")}
                   />
                 </div>
                 <div>
@@ -63,7 +77,8 @@ const Adminform = () => {
                     id="imgurl"
                     placeholder="image url"
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
+                    required
+                    {...register("imgurl")}
                   />
                 </div>
                 <div>
@@ -79,7 +94,8 @@ const Adminform = () => {
                     id="buyers"
                     placeholder="buyers"
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
+                    required
+                    {...register("buyers")}
                   />
                 </div>
 
@@ -95,8 +111,14 @@ const Adminform = () => {
         </div>
       </section>
 
+      <div>
+        <h1>{meddata.medicine_name}</h1>
+        <img src={meddata.imgurl} />
+        <h1>{meddata.price}</h1>
+        <p>{meddata.buyers}</p>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Adminform
+export default Adminform;
